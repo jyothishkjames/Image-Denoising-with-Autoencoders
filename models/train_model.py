@@ -8,7 +8,7 @@ from tensorflow.python.keras.initializers import normal
 from matplotlib import pyplot as plt
 
 
-def create_data(image_dir):
+def transform_data(image_dir):
     """Gets numpy data from images that are in the folders."""
 
     image_files = [image_dir + '{0}'.format(f)
@@ -79,11 +79,16 @@ def denoise_model(image):
 
 
 def main():
-    train_data = create_data("../data/dataset/image_patch/Train/")
-    test_data = create_data("../data/dataset/image_patch/Test/")
 
-    train_data_noise = create_data("../data/dataset/image_patch_noise/Train/")
-    test_data_noise = create_data("../data/dataset/image_patch_noise/Test/")
+    print("Transforming Data")
+
+    train_data = transform_data("../data/dataset/image_patch/Train/")
+    test_data = transform_data("../data/dataset/image_patch/Test/")
+
+    train_data_noise = transform_data("../data/dataset/image_patch_noise/Train/")
+    test_data_noise = transform_data("../data/dataset/image_patch_noise/Test/")
+
+    print("Training/Running model")
 
     input_img = Input(shape=(256, 256, 1))
 
