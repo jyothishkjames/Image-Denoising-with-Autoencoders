@@ -80,7 +80,7 @@ def denoise_model(image):
 
 def main():
 
-    print("Transforming Data")
+    print("Transforming Data...")
 
     train_data = transform_data("../data/dataset/image_patch/Train/")
     test_data = transform_data("../data/dataset/image_patch/Test/")
@@ -88,7 +88,7 @@ def main():
     train_data_noise = transform_data("../data/dataset/image_patch_noise/Train/")
     test_data_noise = transform_data("../data/dataset/image_patch_noise/Test/")
 
-    print("Training/Running model")
+    print("Training/Running model...")
 
     input_img = Input(shape=(256, 256, 1))
 
@@ -96,25 +96,17 @@ def main():
 
     auto_encoder = Model(input_img, output)
 
-    auto_encoder.load_weights("../models/model.h5")
-
     auto_encoder.compile(optimizer='Adam', loss='mse')
 
     auto_encoder.fit(train_data_noise, train_data,
-                     epochs=0,
+                     epochs=10,
                      batch_size=8,
                      shuffle=True,
                      validation_data=(test_data_noise, test_data))
 
-    # autoencoder.save(cwd+"/model_new.h5")
+    print("Saving trained model weights...")
 
-    test_data_denoised = auto_encoder.predict(test_data_noise)
-
-    # Noisy Image
-    plt.imshow(test_data_noise[0].reshape(256, 256), cmap='gray')
-
-    # Denoised Image
-    plt.imshow(test_data_denoised[0].reshape(256, 256), cmap='gray')
+    auto_encoder.save("../model_new.h5")
 
 
 if __name__ == '__main__':
