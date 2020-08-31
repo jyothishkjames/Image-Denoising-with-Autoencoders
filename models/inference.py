@@ -1,12 +1,27 @@
+import argparse
+import scipy.misc
+
 from train_model import *
 
 
 def main():
+    # Read the command line arguments and store them
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--file-path-noisy-image', action='store', dest='file_path_noisy_image', help='filepath of the '
+                                                                                                      'noisy image '
+                                                                                                      'folder',
+                        default=False, required=True)
+
+    parser.add_argument('--file-path-save-image', action='store', dest='file_path_save_image', help='filepath to save '
+                                                                                                    'denoise image',
+                        default=False, required=True)
+
+    results = parser.parse_args()
 
     print("Loading data to test...")
 
-    test_data = transform_data("../data/dataset/image_patch/Test/")
-    test_data_noise = transform_data("../data/dataset/image_patch_noise/Test/")
+    test_data_noise = transform_data(results.file_path_noisy_image)
 
     print("Loading trained model weights...")
 
@@ -20,16 +35,15 @@ def main():
 
     auto_encoder.compile(optimizer='Adam', loss='mse')
 
+    print("Denoising the noisy image...")
+
     test_data_denoised = auto_encoder.predict(test_data_noise)
 
-    # Noisy Image
-    plt.imshow(test_data_noise[0].reshape(256, 256), cmap='gray')
+    test_data_denoised = test_data_denoised.reshape(256, 256)
 
-    # Denoised Image
-    plt.imshow(test_data_denoised[0].reshape(256, 256), cmap='gray')
+    print("Saving denoised image to path " + results.file_path_save_image)
 
-    # Orginal Image
-    plt.imshow(test_data[0].reshape(256, 256), cmap='gray')
+    scipy.misc.imsave(results.file_path_save_image + 'outfile.jpg', test_data_denoised)
 
 
 if __name__ == '__main__':
