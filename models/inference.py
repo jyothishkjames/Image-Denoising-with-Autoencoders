@@ -39,11 +39,11 @@ def main():
 
     test_data_denoised = auto_encoder.predict(test_data_noise)
 
-    test_data_denoised = test_data_denoised.reshape(256, 256)
-
     print("Saving denoised image to path " + results.file_path_save_image)
 
-    scipy.misc.imsave(results.file_path_save_image + 'outfile.jpg', test_data_denoised)
+    for i in range(len(test_data_denoised)):
+        reshaped_image = test_data_denoised[i].reshape(256, 256)
+        scipy.misc.imsave(results.file_path_save_image + 'outfile' + str(i) + '.jpg', reshaped_image)
 
 
 if __name__ == '__main__':
