@@ -36,7 +36,7 @@ regression problem.
 How to test the saved model?
 ----------------------------
 
-
+Go to the folder model and run the file inference.py 
 
 
 Summary
