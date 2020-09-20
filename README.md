@@ -22,7 +22,7 @@ Deep Neural Network Architecture
 --------------------------------
 
 
-![Alt text](data/Paper.png?raw=true "Title")
+![Alt text](data/Architecture.png?raw=true "Title")
 
 
 
