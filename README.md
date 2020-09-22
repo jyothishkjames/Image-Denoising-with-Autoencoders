@@ -5,7 +5,7 @@ Getting Started
 **Image Deonising with Autoencoders** project introduces a novel approach
 to denoise noisy images with Autoencoders. Here we make use of the Convolutional
 Autoencoders to build and train a Deep Neural Network which learns to remove noise 
-from an image
+from an image.
 
 Prerequisites
 -------------
@@ -32,7 +32,7 @@ Dataset
 
 In contrast to a classification problem, an autoencoder generates images.
 Hence we require only a very small dataset as this falls under a 
-regression problem.
+regression problem. We train on 200 samples and validate on 100 samples.
 
 How to test the saved model?
 ----------------------------
@@ -42,6 +42,11 @@ Go to the folder model and run the file inference.py
 
 Summary
 -------
+
+We have a novel approach with a simple architecture which learns to model gaussian 
+noise. 
+
+
 
 
 
